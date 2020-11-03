@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rocketchat-app
+  labels:
+    app: rocketchat-app
+spec:
+  selector:
+    matchLabels:
+      app: rocketchat
+  template:
+    metadata:
+      labels:
+        app: rocketchat
+        tier: frontend
+    spec:
+      containers:
+      - name: rocketchat-app
+        image: rocketchat/rocket.chat:latest
+        env:
+        - name: ROOT_URL
+          value: "http://localhost"
+        - name: MONGO_URL
+          value: "mongodb://mongo-0.mongo,mongo-1.mongo,mongo-2.mongo:27017/rocketchat?replicaSet=rs0"
+        ports:
+          - name: http
+            containerPort: 3000

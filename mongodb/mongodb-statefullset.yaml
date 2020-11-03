@@ -1,0 +1,59 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongo
+spec:
+  selector:
+    app: mongo
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  serviceName: "mongo"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: mongo
+        image: mongo:4.0
+        ports:
+        - containerPort: 27017
+        command:
+        - mongod
+        - "--replSet"
+        - rs0
+        - "--smallfiles" 
+        - "--oplogSize"
+        - "128"
+        - "--storageEngine=mmapv1"
+        resources:
+          limits:
+            memory: 2Gi
+          requests:
+            memory: 2Gi
+        volumeMounts:
+        - name: mongo
+          mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo
+      spec:
+        accessModes: 
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi

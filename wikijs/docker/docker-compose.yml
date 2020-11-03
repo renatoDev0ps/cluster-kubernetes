@@ -1,0 +1,38 @@
+version: '3.3'
+services:
+
+  wikijs:
+    container_name: wikijs
+    hostname: wikijs
+    image: requarks/wiki:2.4
+    environment:
+      - DB_TYPE=${DB_TYPE}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./volumes/wikiJS/data:/data
+      - ./volumes/wikiJS/config:/config
+    ports:
+      - 3001:3000
+    restart: unless-stopped
+    depends_on:
+      - postgresql
+
+  postgresql:
+    container_name: postgresql
+    hostname: postgresql
+    image: postgres:12.4
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    volumes:
+      - ./volumes/postgreSQL/data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
