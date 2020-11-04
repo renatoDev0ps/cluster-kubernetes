@@ -63,4 +63,4 @@ $ helm install --set mongodb.mongodbUsername=rocketchat,mongodb.mongodbPassword=
 
 $ kubectl port-forward --namespace default $(kubectl get pods --namespace default -l "app.kubernetes.io/name=rocketchat,app.kubernetes.io/instance=rocketchat" -o jsonpath='{ .items[0].metadata.name }') 8888:3000 | create bind to the port 3000
 ```
-###### Get bind port to run rocketchat in borwser
+###### Get bind port to run rocketchat in browser
