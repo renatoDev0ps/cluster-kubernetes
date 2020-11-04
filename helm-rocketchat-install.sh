@@ -1,6 +1,6 @@
 #!/bin/bash
 
-helm install --set mongodb.mongodbUsername=rocketchat,mongodb.mongodbPassword=rocketchat123,mongodb.mongodbDatabase=rocketchat,mongodb.mongodbRootPassword=root --name rocketchat stable/rocketchat
+helm install --set mongodb.mongodbUsername=rocketchat,mongodb.mongodbPassword=rocketchat123,mongodb.mongodbDatabase=rocketchat,mongodb.mongodbRootPassword=root rocketchat stable/rocketchat
 
 helm install --name rocketchat -f values.yaml stable/rocketchat
 

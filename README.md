@@ -17,6 +17,8 @@ $ mkdir -p $HOME/.kube
 $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
+###### obs: Never copy "$" and "|".
+.
 ##### Basic commands for testing
 ```sh
 $ kubectl cluster-info | show cluster informations
@@ -57,7 +59,7 @@ $ kubectl logs pods <pod name> | displays logs for a specific pod
 #### To run rocketchat we will use HELM, which was installed along with the prerequisites:
 ##### To start rocket chat use the commands below:
 ```sh
-$ helm install --set mongodb.mongodbUsername=rocketchat,mongodb.mongodbPassword=rocketchat123,mongodb.mongodbDatabase=rocketchat,mongodb.mongodbRootPassword=root --name rocketchat stable/rocketchat | provisioning all rocketchat cluster
+$ helm install --set mongodb.mongodbUsername=rocketchat,mongodb.mongodbPassword=rocketchat123,mongodb.mongodbDatabase=rocketchat,mongodb.mongodbRootPassword=root rocketchat stable/rocketchat | provisioning all rocketchat cluster
 
 $ kubectl port-forward --namespace default $(kubectl get pods --namespace default -l "app.kubernetes.io/name=rocketchat,app.kubernetes.io/instance=rocketchat" -o jsonpath='{ .items[0].metadata.name }') 8888:3000 | create bind to the port 3000
 ```
