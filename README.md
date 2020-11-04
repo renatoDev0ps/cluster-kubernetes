@@ -56,10 +56,11 @@ $ kubectl logs pods <pod name> | displays logs for a specific pod
 ```
 ###### Obs: Get service ip bind to access wikiJS in borwser
 .
-#### To run rocketchat we will use HELM, which was installed along with the prerequisites:
+#### Run rocketchat with HELM, which was installed along with the prerequisites:
 ##### To start rocket chat use the commands below:
 ```sh
 $ helm install --set mongodb.mongodbUsername=rocketchat,mongodb.mongodbPassword=rocketchat123,mongodb.mongodbDatabase=rocketchat,mongodb.mongodbRootPassword=root rocketchat stable/rocketchat | provisioning all rocketchat cluster
 
 $ kubectl port-forward --namespace default $(kubectl get pods --namespace default -l "app.kubernetes.io/name=rocketchat,app.kubernetes.io/instance=rocketchat" -o jsonpath='{ .items[0].metadata.name }') 8888:3000 | create bind to the port 3000
 ```
+###### Get bind port to run rocketchat in borwser
