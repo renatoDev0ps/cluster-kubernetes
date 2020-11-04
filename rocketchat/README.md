@@ -26,7 +26,7 @@ $ cat /path/to/key | base64
 # then past it into data.tls.key
 ```
 
-Edit **MongoDB_HA/storage.yaml** to replace the **google cloud SSD** by the solution that you want.
+Edit **mongodb/storage.yaml** to replace the **google cloud SSD** by the solution that you want.
 There are drivers for AWS, Azure, Google Cloud, GlusterFS, OpenStack Cinder, vSphere, Ceph RBD, and Quobyte. More informations on how to use it can be found [here](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#provisioner).
 
 You can also deploy a single pod mongoDB with **database-deployment.yaml** and **database-service.yaml**.
@@ -42,9 +42,9 @@ If you use RBAC you need to bind a cluster role for your application :
 Then you can start deploying the pods.
 
 ```bash
-$ kubectl create -f MongoDB_HA/storage.yaml
-$ kubectl create -f MongoDB_HA/headless_service.yaml
-$ kubectl create -f MongoDB_HA/MongoDB_statefulset.yaml
+$ kubectl create -f mongodb/storage.yaml
+$ kubectl create -f mongodb/headless_service.yaml
+$ kubectl create -f mongodb/MongoDB_statefulset.yaml
 $ kubectl create -f app-secrets.yaml
 $ kubectl create -f app-service.yaml
 $ kubectl create -f app-deployment.yaml
@@ -57,10 +57,4 @@ The ingress controller act like a internal frontend proxy for the pods, so to ac
 
 ```bash
 $ kubectl get po -o wide
-```
-
-And to test if everything is working all right.
-
-```bash
-$ curl --resolve chat.example.com:443:<node-ip> https://chat.example.com
 ```
