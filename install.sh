@@ -4,6 +4,8 @@ echo "+---------------------------+"
 echo "| update and upgrade server |"
 echo "+---------------------------+"
 sudo apt update
+sudo install -y gconf2-common gconf-service libgconf-2-4 cri-tools
+sudo apt --fix-broken install
 echo "+---------------------------------+"
 echo "| install dependencies on server  |"
 echo "+---------------------------------+"
@@ -69,11 +71,13 @@ echo "+--------------------------------------+"
 sudo apt install apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+sudo apt --fix-broken install
 echo "+--------------------------------------------+"
 echo "| install kubelet kubeadm kubectl on server  |"
 echo "+--------------------------------------------+"
 sudo apt install -y kubeadm kubelet kubectl kubernetes-cni
 sudo apt-mark hold kubelet kubeadm kubectl
+sudo apt --fix-broken install
 echo "+-----------------------------+"
 echo "| install minikube on server  |"
 echo "+-----------------------------+"
